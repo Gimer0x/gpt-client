@@ -112,18 +112,28 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         timeout: Duration::from_secs(10),
     });
 
-    let content = prompt("Enter your message: ");
+    loop {
+        let content = prompt("\nEnter your message: ");
 
-    let messages = vec![
-        Message {
-            role: "user".to_string(),
-            content: content,
-        },
-    ];
+        if content.is_empty() {
+            break;
+        }
+        match content.to_lowercase().as_str() {
+            "exit" | "quit" | "q" | "bye" | "goodbye" | "end" | "stop" | "terminate" => break,
+            _ => {
+                let messages = vec![
+                    Message {
+                        role: "user".to_string(),
+                        content: content.clone(),
+                    },
+                ];
 
-    let response = client.gpt_chat(messages).await?;
+                let response = client.gpt_chat(messages).await?;
+                println!("{}", response);
+            },
+        }
         
-    println!("{}", response);
+    }
     Ok(())
 }
 
