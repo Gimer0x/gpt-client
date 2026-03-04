@@ -113,7 +113,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     });
 
     loop {
-        let content = prompt("\nEnter your message: ");
+        let content = prompt("\nEnter your message (type 'exit' to quit): ");
 
         if content.is_empty() {
             break;
