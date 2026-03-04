@@ -100,7 +100,6 @@ impl AIProvider for OpenAIClient {
     }
 }
 
-
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
@@ -118,6 +117,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         if content.is_empty() {
             break;
         }
+
         match content.to_lowercase().as_str() {
             "exit" | "quit" | "q" | "bye" | "goodbye" | "end" | "stop" | "terminate" => break,
             _ => {
@@ -132,7 +132,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 println!("{}", response);
             },
         }
-        
     }
     Ok(())
 }
